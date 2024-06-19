@@ -1,0 +1,21 @@
+finding all Subarrays of an Array. you have an array A of N elements and told you to find the number of subarrays of A, that have unique elements.
+
+Since the number of subarrays could be large, return value % 109 +7.
+
+public class Solution {
+    public int solve(ArrayList<Integer> A) {
+        int mod = 1000000007;
+        int n = A.size();
+        int left = 0, right = 0, count = 0;
+        HashSet<Integer> set = new HashSet<>();
+        for (right = 0; right < n; right++) {
+            while (set.contains(A.get(right))) {
+                set.remove(A.get(left));
+                left++;
+            }
+            set.add(A.get(right));
+            count = (count + (right - left + 1)) % mod;
+        }
+        return count;
+    }
+}
