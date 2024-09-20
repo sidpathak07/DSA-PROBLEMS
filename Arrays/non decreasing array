@@ -1,0 +1,22 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static boolean isPossible(int[] arr, int n) {
+		// Write your code here.
+      boolean operations = true;
+      for(int i=1;i<n;i++){
+        if(arr[i-1]>arr[i]){
+        if(!operations){
+           return false;
+        }
+        if(i<2 || arr[i-2]<= arr[i]){
+           arr[i-1] = arr[i];
+        }else{
+           arr[i] = arr[i-1];
+        }
+        operations = false;
+        }
+      }
+      return true;
+	}
+}
