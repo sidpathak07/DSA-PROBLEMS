@@ -1,0 +1,37 @@
+public class Solution {
+    //create a string starting with '0' and '1' to check how many changes are required. min count of changes is required for final answer.
+    public static int generateDiff(char st,int n,String str){
+        StringBuilder sb = new StringBuilder("");
+        int count = 0;
+        for(int i=0;i<n;i++){
+            if(st=='0'){
+                if(i%2==0){
+                    sb.append('0');
+                }else{
+                    sb.append('1');
+                }
+            }else{
+                if(i%2==0){
+                    sb.append('1');
+                }else{
+                    sb.append('0');
+                }
+            }
+            if(sb.charAt(i) != str.charAt(i)){
+                count++;
+            }
+        }
+        
+        //System.out.println(sb.toString()+" "+count);
+        return count;
+    }
+    public static int makeBeautiful(String str) {
+        int count1 = generateDiff('0',str.length(),str);
+		int count2 = generateDiff('1',str.length(),str);
+		if(count1<count2){
+            return count1;
+		}else{
+		    return count2;
+		}
+    }
+}
