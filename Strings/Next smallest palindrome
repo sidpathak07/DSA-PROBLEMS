@@ -1,0 +1,137 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static StringBuilder plusOne(String s){
+        StringBuilder str = new StringBuilder(s);
+	    StringBuilder ans = new StringBuilder("");
+	    int carry = 0;
+	    str = str.reverse();
+	    //System.out.println(str);
+	    for(int i=0;i<str.length();i++){
+	        int num = 0;
+	        if(i==0){
+	            num = Character.getNumericValue(str.charAt(i))+carry+1;
+	        }else{
+	            num = Character.getNumericValue(str.charAt(i))+carry;
+	        }
+	        if(num>9){
+	            carry = num/10;
+	            ans.append(String.valueOf(num%10));
+	        }else{
+	            ans.append(String.valueOf(num));
+	            carry = 0;
+	        }
+	    }
+	    if(carry>0){
+	        ans.append(String.valueOf(carry));
+	        carry = 0;
+	    }
+	    
+	    return ans.reverse();
+    }
+	
+	public static ArrayList<Integer> isPalindrome(String str,int length){
+        boolean isPali = true;
+        ArrayList<Integer> al = new ArrayList<>();
+        boolean isAllNine = true;
+        if(length%2==0){
+            int l = (length/2)-1,r = length/2;
+            while(l>=0 && r<length){
+                if(isAllNine && str.charAt(l)!='9'||str.charAt(r)!='9'){
+                    isAllNine=false;
+                }
+                if(str.charAt(l)!=str.charAt(r)){
+                    //al.add(l);
+                    //al.add(r);
+                    break;
+                }
+                l--;
+                r++;
+            }
+            al.add(l);
+            al.add(r);
+            if(isAllNine){
+                al.add(1);
+            }else{
+                al.add(0);
+            }
+        }else{
+            int l = (length/2)-1,r = (length/2)+1;
+            int mid = length/2;
+            if(str.charAt(mid)!='9'){
+                isAllNine = false;
+            }
+            while(l>=0 && r<length){
+                if(isAllNine && str.charAt(l)!='9'||str.charAt(r)!='9'){
+                    isAllNine=false;
+                }
+                if(str.charAt(l)!=str.charAt(r)){
+                    //al.add(l);
+                    //al.add(r);
+                    break;
+                }
+            l--;
+            r++;
+            }
+            al.add(l);
+            al.add(r);
+            if(isAllNine){
+                al.add(1);
+            }else{
+                al.add(0);
+            }
+        }
+        //System.out.println(al);
+        return al;
+    }
+	public static String nextLargestPalindrome(String str, int length) {
+		// Write your code here.
+		StringBuilder ans = new StringBuilder("");
+	    if(length%2==0){ //even length
+	        ArrayList<Integer> al = isPalindrome(str,length);
+			    if(al.get(2)==1){ // if all chars in string contain '9' eg '99','9999',etc
+	            StringBuilder temp1 = plusOne(str);
+	            ans.append(temp1.substring(0,temp1.length()-1));
+	            ans.append("1");
+	            //System.out.println(ans);
+	        }else if(al.get(0)==-1 && al.get(1)==length){ // if string is palindrome and not all char are '9'
+	            StringBuilder temp1 = plusOne(str.substring(0,length/2));
+	            ans.append(temp1);
+	            ans.append(temp1.reverse());
+	            //System.out.println(ans);
+	        }else{ // if not palindrome. we need to check if left side char is less than char at right side considering a mid position. if left is less need to add one to number till mid.
+	            if(Integer.valueOf(str.charAt(al.get(0)))<Integer.valueOf(str.charAt(al.get(1)))){
+	                StringBuilder num = plusOne(str.substring(0,length/2));
+	                ans.append(num);
+	                ans.append(num.reverse());
+	                //System.out.println(ans);
+	            }else{ // if left char is greater than right char of mid then just reverse and append the string from 0 till mid.
+	                StringBuilder temp1 = new StringBuilder(str.substring(0,length/2));
+	                ans.append(temp1);
+	                ans.append(temp1.reverse());
+	                //System.out.println(ans.toString());
+	            }
+	        }
+	    }else{
+	        int mid = str.length()/2;
+	        ArrayList<Integer> al = isPalindrome(str,length);
+			    if(al.get(2)==1){ // if all chars in string contain '9' eg '9','999',etc
+	            StringBuilder temp1 = plusOne(str);
+	            ans.append(temp1.substring(0,temp1.length()-1));
+	            ans.append("1");
+	            //System.out.println(ans);
+	        }else if((al.get(0)==-1 && al.get(1)==length) || (Integer.valueOf(str.charAt(al.get(0)))<Integer.valueOf(str.charAt(al.get(1))))){
+	            StringBuilder temp1 = plusOne((str.substring(0,mid+1)));
+	            ans.append(temp1);
+	            ans.append(temp1.reverse().substring(1,temp1.length()));
+	            //System.out.println(ans);
+	        }else{
+	            ans.append(str.substring(0,mid+1));
+	            StringBuilder sb = new StringBuilder(str.substring(0,mid));
+                ans.append(sb.reverse());
+                //System.out.println(ans.toString());
+	        }
+	    }
+		return ans.toString();
+	}
+}
