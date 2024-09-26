@@ -1,0 +1,35 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+
+	public static Integer coverageOfMatrix(ArrayList<ArrayList<Integer>> al) {
+		int n = al.size();
+	    int m = al.get(0).size();
+	    int ans = 0;
+	    for(int i=0;i<n;i++){
+	        for(int j=0;j<m;j++){
+	            if(al.get(i).get(j)==0){
+	                if(al.get(i).get(j)==0){
+	                    if(i-1>=0 && al.get(i-1).get(j)==1){
+	                        ans++;
+	                    }
+	                    if(i+1<n && al.get(i+1).get(j)==1){
+	                        ans++;
+	                    }
+	                    if(j+1<m && al.get(i).get(j+1)==1){
+	                        ans++;
+	                    }
+	                    if(j-1>=0 && al.get(i).get(j-1)==1){
+	                        ans++;
+	                    }
+	                }
+	            }
+	        }
+	    }
+
+		// Write your code here.
+		return ans;
+	}
+}
