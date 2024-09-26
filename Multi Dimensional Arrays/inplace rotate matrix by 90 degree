@@ -1,0 +1,28 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	
+	public static void inplaceRotate(int[][] arr, int n) {
+		// Write your code here.
+		int i=0,j=n-1;
+    //reverse the array by column
+		while(i<j){
+			for(int k=0;k<n;k++){
+				int temp = arr[k][i];
+				arr[k][i] = arr[k][j];
+				arr[k][j] = temp;
+			}
+			i++;
+			j--;
+		}
+    //transpose of the array.
+		for(i=1;i<n;i++){
+			for(j=0;j<i;j++){
+				int temp = arr[i][j];
+				arr[i][j] =  arr[j][i];
+				arr[j][i] = temp;
+			}
+		}
+	}
+
+}
