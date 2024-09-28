@@ -1,0 +1,42 @@
+
+public class Solution {
+
+	public static void spiralPrint(int arr[][]){
+		//Your code goes here
+		int n = arr.length;
+	  if(n==0){
+			System.out.print("");
+		}else{
+			int m = arr[0].length;
+			int top = 0,bottom = n-1;
+	    	int left = 0,right = m-1;
+			while(top<=bottom && left<=right){
+				//5x5 matrix
+				// top is 1st row, bottom is last row, left is 1st column, right is last column
+				//start from top to right 1->2->3->4->5 
+				for(int i=top;i<=right;i++){
+					System.out.print(arr[top][i]+" ");
+				}
+				top++; // increase top
+				//start from top to bottom 10->15-20->25
+				for(int i=top;i<=bottom;i++){
+					System.out.print(arr[i][right]+" ");
+				}
+				right--;// decrease right
+				// these checks are done as right and top have been modified.
+				if(top<=bottom){ // check is top is still less than bottom to avoid duplication of printing rows.
+					for(int i=right;i>=left;i--){
+						System.out.print(arr[bottom][i]+" ");
+					};
+					bottom--;
+				}
+				if(left<=right){ // check if left is less than right to avoid duplication of column.
+					for(int i=bottom;i>=top;i--){
+						System.out.print(arr[i][left]+" ");
+					}
+					left++;
+				}
+			}
+		}
+	}
+}
