@@ -1,0 +1,31 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+
+	public static char firstNonRepeatingCharacter(String str) {
+		// Write your code here
+		LinkedHashMap<Character,Integer> hm = new LinkedHashMap<>();
+		boolean isNonRepeating = false;
+		for(int i=0;i<str.length();i++){
+			if(hm.containsKey(str.charAt(i))){
+				hm.put(str.charAt(i),hm.get(str.charAt(i))+1);
+			}else{
+				hm.put(str.charAt(i),1);
+			}
+		}
+		char c = 'a';
+		for(Character ch: hm.keySet()){
+			if(hm.get(ch)==1){
+				c = ch;
+				isNonRepeating = true;
+				break;
+			}
+		}
+		if(isNonRepeating){
+			return c;
+		}else{
+			return str.charAt(0);
+
+		}
+	}
+}
