@@ -1,0 +1,31 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int subArrayCount(ArrayList < Integer > al, int k) {
+
+    	 // Write your code here.
+        HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+        hm.put(0,1);
+        int sum = 0;
+        int count=0;
+        //we check for remainder's if we found remainder as 0 or repetative remainders we add the freq to count and update the value of freq by adding 1.
+        for(int i=0;i<al.size();i++){
+            sum+=al.get(i);
+            int rem = sum%k;
+            if(r<0){
+                rem = rem+k; // we add k to remainder to convert he negative number to positive. kn'+(k-y) is equal to -ve remainder. so we add k to remainder.
+            }
+            if(hm.containsKey(rem)){
+                count+=hm.get(r); //add the previous freq to count
+                hm.put(rem,hm.get(rem)+1); // increase the freq of rem by 1.
+            }else{
+                hm.put(rem,1);
+            }
+        }
+        return count;
+    }
+    
+}
