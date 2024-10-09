@@ -1,0 +1,39 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+
+	public static ArrayList<ArrayList<String>> getGroupedAnagrams(ArrayList<String> al, int n) {
+		// Write your code here.
+		ArrayList<ArrayList<String>> arrStr = new ArrayList<ArrayList<String>>();
+		LinkedHashMap<String,ArrayList<Integer>> hm = new LinkedHashMap<String,ArrayList<Integer>>();
+		//we will sort the each char in string and check if we have same string in hashmap
+		//if yes we will add the index of un-sorted char string to arrayList in hashmap
+		for(int i=0;i<al.size();i++){
+			char[] ch = al.get(i).toCharArray(); //convert string to char array
+			Arrays.sort(ch);//sort char array
+			String s = new String(ch);//create a string from sorted char array
+			//System.out.println(s);
+			//newAl.add(s);
+			if(hm.containsKey(s)){ // check if string is present
+				ArrayList<Integer> a = hm.get(s);
+				a.add(i);
+				hm.put(s,a);
+			}else{
+				ArrayList<Integer> a = new ArrayList<>();
+				a.add(i);
+				hm.put(s,a);
+			}
+			//System.out.println(hm);
+		}
+		
+		for(Map.Entry<String,ArrayList<Integer>> entry : hm.entrySet()){
+			ArrayList<String> a = new ArrayList<String>();
+			for(int i=0;i<entry.getValue().size();i++){
+				a.add(al.get(entry.getValue().get(i)));
+			}
+			arrStr.add(a);
+			//System.out.println();
+		}
+		return arrStr;
+	}
+}
